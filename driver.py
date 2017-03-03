@@ -19,3 +19,9 @@ input_state = sys.argv[2].split(',')
 grid = grid.Grid(input_state)
 # test
 print(grid.state)
+
+# test
+grid.move_left()
+
+print 'after moving to left'
+print(grid.state)
