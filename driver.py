@@ -1,4 +1,5 @@
-import sys # for access to command line arguments
+import sys 
+import grid
 
 # validate command line input
 if len(sys.argv) != 3:
@@ -9,11 +10,12 @@ if sys.argv[1] not in ['bfs', 'dfs', 'ast', 'ida']:
 	sys.stderr.write('<method> argument must be one of bfs, dfs, ast, ida\n')
 	sys.exit()
 
-input_state = sys.argv.split(',')
+input_state = sys.argv[2].split(',')
+
 # TODO: check that input grid is perfect square and contains all integers 0 to (len(input_state) - 1)
 
 
 # instantiate state object
-grid = Grid(input_state)
+grid = grid.Grid(input_state)
 # test
-print(grid)
+print(grid.state)
