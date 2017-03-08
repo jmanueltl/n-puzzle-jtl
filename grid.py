@@ -22,24 +22,42 @@ class Grid:
                 i += 1
 
 
-    def move_left(self):
+    def move(self, direction):
+        """ 
+        Slides a tile in one of 4 directions.
+        Returns True if successful (with side-effect of changing the state)
+        Returns False if movement in that direction not possible 
+        """
 
-        # TODO: seperate model and controller here?
-        # TODO: change this to generic move('direction')
-        
         # find coordinates of '0' tile
         zero_coords =  [ (index, row.index('0')) for index, row 
                         in enumerate(self.state) 
                         if '0' in row ]
 
-        # swap 0 tile with tile to the RIGHT
-        # (when we say 'move left' we mean the tile, not the space (0))   
-        tile_to_move = self.state[zero_coords[0][0]][zero_coords[0][1] + 1]
-        self.state[zero_coords[0][0]][zero_coords[0][1]] = tile_to_move
-        self.state[zero_coords[0][0]][zero_coords[0][1] + 1] = '0'
+        # find the offset of the moving tile relative to the '0' tile
+        if direction == 'up':
+            y, x = 1, 0
+        elif direction == 'down':
+            y, x = -1, 0
+        elif direction == 'left':
+            y, x = 0, 1
+        elif direction == 'right':
+            y, x = 0, -1
+        else:
+            raise ValueError('Invalid direction: must be \'up\', \'down\', \
+                \'left\' or \'right\'')
 
+        # when we say 'move left' we mean the tile, not the space (0) 
+        # zero_coords is of form [(y, x)]
+        try:  
+            tile_to_move = self.state[zero_coords[0][0] + y][zero_coords[0][1] + x]
+            self.state[zero_coords[0][0]][zero_coords[0][1]] = tile_to_move
+            self.state[zero_coords[0][0] + y][zero_coords[0][1] + x] = '0'
+        except IndexError:
+            return False
 
-        # TODO: handle case where cannot move left due to edge of board
+        return True
+
 
 
 

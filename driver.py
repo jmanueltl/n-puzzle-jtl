@@ -21,7 +21,14 @@ grid = grid.Grid(input_state)
 print(grid.state)
 
 # test
-grid.move_left()
-
-print 'after moving to left'
+grid.move('up')
 print(grid.state)
+grid.move('right')
+print(grid.state)
+grid.move('down')
+print(grid.state)
+grid.move('left')
+print(grid.state)
+
+
+
