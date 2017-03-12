@@ -10,17 +10,15 @@ class Solver:
         # different name?
         self.initial_state = grid.Grid(input_state)
 
+        self.frontier = Queue.Queue()
+
+        self.explored = set()
+
 
 
     def breadth_first_search(self, input_state):
 
-        # create frontier: next nodes to search
-        frontier = Queue.Queue()
-        expand_nodes(frontier, input_state)
-          
-
-        # keep track of nodes already visited
-        explored = set()
+        expand_nodes(input_state)    
 
         while not frontier.empty():
             state = frontier.get()
@@ -31,28 +29,24 @@ class Solver:
 
             # add neighbours of this state to the frontier, if not already in the
             # frontier or explored
-            # TODO
+            expand_nodes(state)
 
 
-    def expand_nodes(frontier, state):
+    
+    def expand_nodes(self, state):
         """ adds all possible next nodes from a state to a frontier set """
 
         for node in ['up', 'down', 'left', 'right']:   
 
             # need to create new grid object for each node
             # the program is imagining the future!! (maybe change this name...)
-            imagined_grid = grid.Grid(input_state)
+            imagined_grid = grid.Grid(state)
 
             if imagined_grid.move(node):  # returns false if move not possible
-                # add the state (a list) rather than the whole object, as may run 
-                # into problems later testing equality of objects
-                frontier.put(imagined_grid.state)
+                if imagined_grid.state not in self.frontier or self.explored:
+                    frontier.put(imagined_grid.state)
 
-        # TODO: we can modify the passed frontier because the lists in the queue
-        # are mutable. However, it may be a clearer pattern to have this function
-        # as a method of the frontier object
-        # see http://softwareengineering.stackexchange.com/questions/262221/coding-style-issue-should-we-have-functions-which-take-a-parameter-modify-it
-
+        
 
 
     def goal_test(state):
