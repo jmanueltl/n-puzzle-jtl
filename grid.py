@@ -1,28 +1,12 @@
 import math
+import Queue
 
 class Grid:
     """ Represents the state of the grid """
 
     def __init__(self, input_state):
-        """ 
-        Constructs n x n grid of numbered tiles. 
-        input_state is an array of integers 
-        """
-
-        self.n = int(math.sqrt(len(input_state)))
-
-        # initialise empty grid
-        self.state = [['-' for x in range(self.n)] for y in range(self.n)]
-
-        # populate grid with tiles
-        i = 0
-        j = 0
-        for tile in input_state:
-            self.state[i][j] = tile
-            j += 1
-            if j == self.n:
-                j = 0
-                i += 1
+        
+        self.state = input_state
 
 
     def move(self, direction):

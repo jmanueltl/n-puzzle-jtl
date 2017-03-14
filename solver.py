@@ -6,7 +6,13 @@ class Solver:
     
     def __init__(self, input_grid):
         
-        self.initial_state = input_grid       
+        self.initial_state = input_grid 
+
+        # queue of grid states
+        self.frontier = Queue.queue()
+
+        # set of grid states
+        self.explored = set()      
 
 
 
@@ -14,11 +20,11 @@ class Solver:
 
         initial_grid = grid.Grid(self.initial_state)
 
-        expand_nodes(self.initial_state)    
+        expand_nodes(initial_grid)    
 
-        while not frontier.empty():
-            state = frontier.get()
-            explored.add(state)
+        while not self.frontier.empty():
+            state = self.frontier.get()
+            self.explored.add(state)
 
             if goal_test(state):
                 return #TODO: what are we returning? do we want the path?
@@ -29,18 +35,16 @@ class Solver:
 
 
     
-    def expand_nodes(self, state):
+    def expand_nodes(self, starting_grid):
         """ adds all possible next nodes from a state to a frontier set """
 
         for node in ['up', 'down', 'left', 'right']:   
 
             # need to create new grid object for each node
             # the program is imagining the future!! (maybe change this name...)
-            imagined_grid = grid.Grid(state)
+            imagined_grid = grid.Grid(starting_grid.state)
 
             if imagined_grid.move(node):  # returns false if move not possible
-
-                # TODO: this below is testing object equality. We want value eq.
                 if imagined_grid.state not in self.frontier or self.explored:
                     frontier.put(imagined_grid.state)
 
