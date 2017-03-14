@@ -1,24 +1,20 @@
 import grid
-import Queue
+
 
 class Solver:
     """ Controller. Takes a grid state, returns path solution """
     
-    def __init__(self, input_state):
+    def __init__(self, input_grid):
         
-        # TODO: are we confusing initial_state here with initial_state in driver.py?
-        # different name?
-        self.initial_state = grid.Grid(input_state)
-
-        self.frontier = Queue.Queue()
-
-        self.explored = set()
+        self.initial_state = input_grid       
 
 
 
-    def breadth_first_search(self, input_state):
+    def breadth_first_search(self):
 
-        expand_nodes(input_state)    
+        initial_grid = grid.Grid(self.initial_state)
+
+        expand_nodes(self.initial_state)    
 
         while not frontier.empty():
             state = frontier.get()
@@ -43,6 +39,8 @@ class Solver:
             imagined_grid = grid.Grid(state)
 
             if imagined_grid.move(node):  # returns false if move not possible
+
+                # TODO: this below is testing object equality. We want value eq.
                 if imagined_grid.state not in self.frontier or self.explored:
                     frontier.put(imagined_grid.state)
 
@@ -52,9 +50,7 @@ class Solver:
     def goal_test(state):
         # TODO: implement
 
-        # TODO: we have three different 'states' being passed around:
-        # input_state, the grid object, and the state property of the grid
-        # object. Think + clean this up
+        
 
         
 

@@ -1,5 +1,6 @@
 import sys 
 import grid
+import solver
 
 # validate command line input
 if len(sys.argv) != 3:
@@ -10,25 +11,34 @@ if sys.argv[1] not in ['bfs', 'dfs', 'ast', 'ida']:
 	sys.stderr.write('<method> argument must be one of bfs, dfs, ast, ida\n')
 	sys.exit()
 
-input_state = sys.argv[2].split(',')
+input_list = sys.argv[2].split(',')
 
-# TODO: check that input grid is perfect square and contains all integers 0 to (len(input_state) - 1)
+# TODO: check that input list represents perfect square and contains all integers 0 to (len(input_state) - 1)
+
+# convert input list into nxn grid
+
+n = int(math.sqrt(len(input_list)))
+
+# initialise empty grid
+input_grid = [['-' for x in range(input_list)] for y in range(input_list)]
+
+# populate grid with tiles
+i = 0
+j = 0
+for tile in input_list:
+    input_grid[i][j] = tile
+    j += 1
+    if j == n:
+        j = 0
+        i += 1
 
 
-# instantiate state object
-grid = grid.Grid(input_state)
-# test
-print(grid.state)
+# testing
+solver = solver.Solver(input_grid)
+solver.breadth_first_search()
 
-# test
-grid.move('up')
-print(grid.state)
-grid.move('right')
-print(grid.state)
-grid.move('down')
-print(grid.state)
-grid.move('left')
-print(grid.state)
+
+
 
 
 
