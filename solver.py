@@ -4,7 +4,7 @@ import grid
 class Solver:
     """ Controller. Takes a grid state, returns path solution """
     
-    def __init__(self, input_grid):
+    def __init__(self, input_grid, n):
         
         self.initial_state = input_grid 
 
@@ -12,7 +12,13 @@ class Solver:
         self.frontier = Queue.queue()
 
         # set of grids
-        self.explored = set()      
+        self.explored = set() 
+
+
+
+        # set goal state
+        self.goal_state = set_goal_state(n)
+
 
 
 
@@ -59,35 +65,34 @@ class Solver:
         
         # TODO: confusing names. state here is not a Grid.state but a Grid
 
-        if state.
+        # ridiculous naming here
+        # TODO: is this using strict object comparison here?
+        if state.state == self.goal_state:
+            return True
+        else:
+            return False
 
-        # # find dimensions of the grid
-        # height = len(state)
-        # width = len(state[0])
-        # if height != width:
-        #     raise ValueError('grid is not a perfect square')
-        # # note: doesn't test for jagged array (ie. assumes all rows same width)
+        
+    
+    def set_goal_state(n):
 
-        # # initialise empty grid state
-        # goal_state = [height][width]
+        # initialise empty grid state
+        goal_state = [n][n]
 
-        # # populate goal grid with ordered tiles
-        # # populate grid with tiles
-        # i = 0
-        # j = 0
-        # count = 0
-        # for tile in :
-        #     goal_state[i][j] = count
-        #     count += 1
-        #     j += 1
-        #     if j == width:
-        #         j = 0
-        #         i += 1
+        # populate goal grid with ordered tiles
+        i = 0
+        j = 0
+        count = 0
+        for tile in :
+            goal_state[i][j] = count
+            count += 1
+            j += 1
+            if j == width:
+                j = 0
+                i += 1
 
-        # if state = goal_state:
-        #     return True
-        # else:
-        #     return False
+        return goal_state
+
 
 
 
