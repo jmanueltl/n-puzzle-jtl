@@ -8,10 +8,10 @@ class Solver:
         
         self.initial_state = input_grid 
 
-        # queue of grid states
+        # queue of grids
         self.frontier = Queue.queue()
 
-        # set of grid states
+        # set of grids
         self.explored = set()      
 
 
@@ -49,41 +49,45 @@ class Solver:
 
             if imagined_grid.move(node):  # returns false if move not possible
                 # TODO: is this testing strict object equality? don't want that.
-                if imagined_grid.state not in self.frontier or self.explored:
-                    self.frontier.put(imagined_grid.state)
+                if imagined_grid not in self.frontier or self.explored:
+                    self.frontier.put(imagined_grid)
 
         
 
 
     def goal_test(state):
         
-        # find dimensions of the grid
-        height = len(state)
-        width = len(state[0])
-        if height != width:
-            raise ValueError('grid is not a perfect square')
-        # note: doesn't test for jagged array (ie. assumes all rows same width)
+        # TODO: confusing names. state here is not a Grid.state but a Grid
 
-        # initialise empty grid state
-        goal_state = [height][width]
+        if state.
 
-        # populate goal grid with ordered tiles
-        # populate grid with tiles
-        i = 0
-        j = 0
-        count = 0
-        for tile in :
-            goal_state[i][j] = count
-            count += 1
-            j += 1
-            if j == width:
-                j = 0
-                i += 1
+        # # find dimensions of the grid
+        # height = len(state)
+        # width = len(state[0])
+        # if height != width:
+        #     raise ValueError('grid is not a perfect square')
+        # # note: doesn't test for jagged array (ie. assumes all rows same width)
 
-        if state = goal_state:
-            return True
-        else:
-            return False
+        # # initialise empty grid state
+        # goal_state = [height][width]
+
+        # # populate goal grid with ordered tiles
+        # # populate grid with tiles
+        # i = 0
+        # j = 0
+        # count = 0
+        # for tile in :
+        #     goal_state[i][j] = count
+        #     count += 1
+        #     j += 1
+        #     if j == width:
+        #         j = 0
+        #         i += 1
+
+        # if state = goal_state:
+        #     return True
+        # else:
+        #     return False
 
 
 
