@@ -61,7 +61,7 @@ class Solver:
             if imagined_grid.move(node):  # returns false if move not possible
                 
                 # update path history
-                imagined_grid.path_history.add(node)
+                imagined_grid.path_history.append(node)
 
                 # TODO: is this testing strict object equality? don't want that.
                 if imagined_grid not in self.frontier or self.explored:
