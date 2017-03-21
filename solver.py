@@ -1,5 +1,6 @@
 import grid
 import Queue
+import custom_structures
 
 
 class Solver:
@@ -8,14 +9,10 @@ class Solver:
     def __init__(self, input_grid, n):
         
         self.initial_state = input_grid 
-
-        # queue of grids
-        self.frontier = Queue.Queue()
-
-        # set of grids
-        self.explored = set() 
-
-
+        
+        # using custom structure so we can implement a custom __contains__
+        self.frontier = custom_structures.Frontier()        
+        self.explored = custom_structures.Explored() 
 
         # set goal state
         # TODO: this smells wrong. Is it?
@@ -30,9 +27,9 @@ class Solver:
 
         self.expand_nodes(initial_grid)    
 
-        while not self.frontier.empty():
-            state = self.frontier.get()
-            self.explored.add(state)
+        while not self.frontier.queue.empty():
+            state = self.frontier.queue.get()    # TODO: this is mental. need another way
+            self.explored.set.add(state)
 
             if goal_test(state):
                 return state.path_history
@@ -63,9 +60,11 @@ class Solver:
                 # update path history
                 imagined_grid.path_history.append(node)
 
-                # TODO: is this testing strict object equality? don't want that.
+                # is this new grid already in frontier or explored?
                 if imagined_grid not in self.frontier or self.explored:
-                    self.frontier.put(imagined_grid)
+                    self.frontier.queue.put(imagined_grid)
+
+                
 
         
 
