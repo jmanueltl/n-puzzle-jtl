@@ -10,6 +10,10 @@ class Grid:
 
         self.path_history = list()
 
+        # TODO: we're calculating n here, but passing it between objects elsewhere. 
+        # Tidy?
+        self.n = len(input_state[0])
+
 
     def move(self, direction):
         """ 
