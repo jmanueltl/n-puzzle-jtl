@@ -31,7 +31,7 @@ class Solver:
             state = self.frontier.queue.get()    # TODO: this is mental. need another way
             self.explored.set.add(state)
 
-            if goal_test(state):
+            if self.goal_test(state):
                 return state.path_history
 
             # add neighbours of this state to the frontier, if not already in the
@@ -69,7 +69,7 @@ class Solver:
         
 
 
-    def goal_test(state):
+    def goal_test(self, state):
         
         # TODO: confusing names. state here is not a Grid.state but a Grid
 
