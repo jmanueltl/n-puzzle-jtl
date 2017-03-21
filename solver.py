@@ -18,7 +18,8 @@ class Solver:
 
 
         # set goal state
-        self.goal_state = set_goal_state(n)
+        # TODO: this smells wrong. Is it?
+        self.goal_state = self.set_goal_state(n)
 
 
 
@@ -82,7 +83,7 @@ class Solver:
 
         
     
-    def set_goal_state(n):
+    def set_goal_state(self, n):
 
         # initialise empty grid state
         goal_state = [n][n]
