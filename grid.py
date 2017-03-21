@@ -1,5 +1,5 @@
 import math
-import Queue
+
 
 class Grid:
     """ Represents the state of the grid """
