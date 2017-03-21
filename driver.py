@@ -1,6 +1,7 @@
 import sys 
 import grid
 import solver
+import math
 
 # validate command line input
 if len(sys.argv) != 3:
