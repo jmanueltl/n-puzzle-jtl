@@ -28,7 +28,7 @@ class Solver:
 
         initial_grid = grid.Grid(self.initial_state)
 
-        expand_nodes(initial_grid)    
+        self.expand_nodes(initial_grid)    
 
         while not self.frontier.empty():
             state = self.frontier.get()
@@ -39,7 +39,7 @@ class Solver:
 
             # add neighbours of this state to the frontier, if not already in the
             # frontier or explored
-            expand_nodes(state)
+            self.expand_nodes(state)
 
         # if we get to here it's gone tits up
         raise ValueError('Shouldn\'t have got to here - gone tits')
