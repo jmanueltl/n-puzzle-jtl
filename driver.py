@@ -21,7 +21,7 @@ input_list = sys.argv[2].split(',')
 n = int(math.sqrt(len(input_list)))
 
 # initialise empty grid
-input_grid = [['-' for x in range(input_list)] for y in range(input_list)]
+input_grid = [['-' for x in range(len(input_list))] for y in range(len(input_list))]
 
 # populate grid with tiles
 i = 0
