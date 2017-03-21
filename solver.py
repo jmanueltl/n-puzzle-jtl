@@ -90,11 +90,12 @@ class Solver:
         i = 0
         j = 0
         count = 0
-        for tile in :
+        
+        while i < n:
             goal_state[i][j] = count
             count += 1
             j += 1
-            if j == width:
+            if j == n:
                 j = 0
                 i += 1
 
