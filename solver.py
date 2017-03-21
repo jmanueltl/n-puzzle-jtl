@@ -10,7 +10,7 @@ class Solver:
         self.initial_state = input_grid 
 
         # queue of grids
-        self.frontier = Queue.queue()
+        self.frontier = Queue.Queue()
 
         # set of grids
         self.explored = set() 
