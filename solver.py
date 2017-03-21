@@ -50,7 +50,7 @@ class Solver:
             if imagined_grid.move(node):  # returns false if move not possible
                 # TODO: is this testing strict object equality? don't want that.
                 if imagined_grid.state not in self.frontier or self.explored:
-                    frontier.put(imagined_grid.state)
+                    self.frontier.put(imagined_grid.state)
 
         
 
