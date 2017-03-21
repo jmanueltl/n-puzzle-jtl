@@ -86,7 +86,7 @@ class Solver:
     def set_goal_state(self, n):
 
         # initialise empty grid state
-        goal_state = [n][n]
+        goal_state = [['-' for x in range(n)] for y in range(n)]
 
         # populate goal grid with ordered tiles
         i = 0
