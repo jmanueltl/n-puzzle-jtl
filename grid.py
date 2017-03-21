@@ -8,6 +8,8 @@ class Grid:
         
         self.state = input_state
 
+        self.path_history = list()
+
 
     def move(self, direction):
         """ 

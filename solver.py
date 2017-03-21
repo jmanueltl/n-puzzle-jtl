@@ -33,7 +33,7 @@ class Solver:
             self.explored.add(state)
 
             if goal_test(state):
-                return #TODO: what are we returning? do we want the path? YES.
+                return state.path_history
 
             # add neighbours of this state to the frontier, if not already in the
             # frontier or explored
@@ -53,7 +53,14 @@ class Solver:
             # the program is imagining the future!! (maybe change this name...)
             imagined_grid = grid.Grid(starting_grid.state)
 
+            # pass path history from previous grid to the next grid
+            imagined_grid.path_history = starting_grid.path_history
+
             if imagined_grid.move(node):  # returns false if move not possible
+                
+                # update path history
+                imagined_grid.path_history.add(node)
+
                 # TODO: is this testing strict object equality? don't want that.
                 if imagined_grid not in self.frontier or self.explored:
                     self.frontier.put(imagined_grid)
