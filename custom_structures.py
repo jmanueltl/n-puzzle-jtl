@@ -1,8 +1,7 @@
 from collections import deque
 
-class Frontier():
-    """docstring for Frontier"""
-    
+class Frontier:
+        
     def __init__(self):
         self.queue = deque()
 
@@ -15,9 +14,8 @@ class Frontier():
 
 
 
-class Explored():
-    """docstring for Explored"""
-    
+class Explored:
+       
     def __init__(self):
         self.set = set()
 
