@@ -1,5 +1,4 @@
 import grid
-import Queue
 import custom_structures
 
 
@@ -27,7 +26,7 @@ class Solver:
 
         self.expand_nodes(initial_grid)    
 
-        while not self.frontier.queue.empty():
+        while not self.frontier.queue.popleft():
             state = self.frontier.queue.get()    # TODO: this is mental. need another way
             self.explored.set.add(state)
 
@@ -62,7 +61,7 @@ class Solver:
 
                 # is this new grid already in frontier or explored?
                 if imagined_grid not in self.frontier or self.explored:
-                    self.frontier.queue.put(imagined_grid)
+                    self.frontier.queue.append(imagined_grid)
 
                 
 

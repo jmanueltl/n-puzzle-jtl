@@ -1,29 +1,32 @@
-import Queue
+from collections import deque
 
-class Custom_Structures:
+class Frontier():
+    """docstring for Frontier"""
+    
+    def __init__(self):
+        self.queue = deque()
 
-    # leave __init__ for now. The docs for an abstract class in Python seems
-    # overkill for what I want to do here
-
-    # implementing this so I have a custom comparison for Grid objects
     def __contains__(self, item):
+        for element in self.queue:
+            if item.state == element.state:
+                return True
 
-        # TODO
         return False
 
 
 
-class Frontier(Custom_Structures):
-    """docstring for Frontier"""
-    
-    def __init__(self):
-        self.queue = Queue.Queue()
-
-class Explored(Custom_Structures):
+class Explored():
     """docstring for Explored"""
     
     def __init__(self):
         self.set = set()
+
+    def __contains__(self, item):
+        for element in self.set:
+            if item.state == element.state:
+                return True
+
+        return False
         
     
 
