@@ -96,11 +96,16 @@ class Solver:
         # populate goal grid with ordered tiles
         i = 0
         j = 0
-        count = 0
+        count = 1
         
         while i < n:
+            
+            if count == n * n:
+                count = 0
+
             goal_state[i][j] = count
-            count += 1
+            count += 1            
+
             j += 1
             if j == n:
                 j = 0
