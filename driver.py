@@ -14,6 +14,9 @@ if sys.argv[1] not in ['bfs', 'dfs', 'ast', 'ida']:
 
 input_list = sys.argv[2].split(',')
 
+# convert strings to ints
+input_list = map(int, input_list)
+
 # TODO: check that input list represents perfect square and contains all integers 0 to (len(input_state) - 1)
 
 # convert input list into nxn grid
