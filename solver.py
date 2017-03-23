@@ -27,10 +27,9 @@ class Solver:
 
         initial_grid = grid.Grid(self.initial_state)
 
-        self.expand_nodes(initial_grid) 
-
-        # TODO: edge case. where the input IS the solution   
-
+        # add initial to the frontier
+        self.frontier.queue.append(initial_grid)
+        
         # while queue is not empty..
         while self.frontier.queue:
             # TODO: better name for state. It's a grid. state.state is the state!
