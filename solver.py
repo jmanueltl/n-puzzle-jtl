@@ -27,11 +27,14 @@ class Solver:
 
         initial_grid = grid.Grid(self.initial_state)
 
-        self.expand_nodes(initial_grid)    
+        self.expand_nodes(initial_grid) 
+
+        # TODO: edge case. where the input IS the solution   
 
         # while queue is not empty..
         while self.frontier.queue:
-            state = self.frontier.queue.pop()    
+            # TODO: better name for state. It's a grid. state.state is the state!
+            state = self.frontier.queue.popleft()    
             self.explored.set.add(state)
 
             if self.goal_test(state):
