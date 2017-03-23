@@ -41,8 +41,12 @@ for tile in input_list:
 # TODO: do we want to pass the input_grid to the solver, or just instantiate 
 # a generic Solver and pass inut_grid to the search method?
 solver = solver.Solver(input_grid, n)
-solution = solver.breadth_first_search() 
-print solution
+
+try:
+    solution = solver.breadth_first_search() 
+    print solution
+except ValueError:
+    print 'solution not possible'
 
 
 
