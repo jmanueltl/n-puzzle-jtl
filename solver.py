@@ -65,7 +65,7 @@ class Solver:
                 imagined_grid.path_history.append(node)
 
                 # is this new grid already in frontier or explored?
-                if imagined_grid not in self.frontier or self.explored:
+                if imagined_grid not in self.frontier and imagined_grid not in self.explored:
                     self.frontier.queue.append(imagined_grid)
 
                 
