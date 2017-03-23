@@ -1,5 +1,6 @@
 import grid
 import custom_structures
+import copy
 
 
 class Solver:
@@ -7,7 +8,9 @@ class Solver:
     
     def __init__(self, input_grid, n):
         
-        self.initial_state = input_grid 
+        # don't just bind to input state. we want the object to have its OWN state
+        # https://docs.python.org/2/library/copy.html
+        self.initial_state = copy.deepcopy(input_grid) 
         
         # using custom structure so we can implement a custom __contains__
         self.frontier = custom_structures.Frontier()        
@@ -52,7 +55,8 @@ class Solver:
             imagined_grid = grid.Grid(starting_grid.state)
 
             # pass path history from previous grid to the next grid
-            imagined_grid.path_history = starting_grid.path_history
+            # https://docs.python.org/2/library/copy.html
+            imagined_grid.path_history = copy.copy(starting_grid.path_history)
 
             if imagined_grid.move(node):  # returns false if move not possible
                 

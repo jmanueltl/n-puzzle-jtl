@@ -1,12 +1,14 @@
 import math
-
+import copy
 
 class Grid:
     """ Represents the state of the grid """
 
     def __init__(self, input_state):
         
-        self.state = input_state
+        # don't just bind to input state. we want the object to have its OWN state
+        # https://docs.python.org/2/library/copy.html
+        self.state = copy.deepcopy(input_state)
 
         self.path_history = list()
 
