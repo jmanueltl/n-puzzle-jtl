@@ -50,7 +50,7 @@ class Grid:
         # swap tiles
         tile_to_move = self.state[zero_coords[0] + y][zero_coords[1] + x]
         self.state[zero_coords[0]][zero_coords[1]] = tile_to_move
-        self.state[zero_coords[0] + y][zero_coords[1] + x] = '0'              
+        self.state[zero_coords[0] + y][zero_coords[1] + x] = 0              
 
         return True
 
