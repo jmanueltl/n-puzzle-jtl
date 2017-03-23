@@ -31,7 +31,7 @@ class Solver:
 
         # while queue is not empty..
         while self.frontier.queue:
-            state = self.frontier.queue.get()    # TODO: this is mental. need another way
+            state = self.frontier.queue.pop()    
             self.explored.set.add(state)
 
             if self.goal_test(state):
