@@ -62,7 +62,7 @@ class Grid:
         """
         for (y, row) in enumerate(self.state):
             for (x, value) in enumerate(row):
-                if value == '0':
+                if value == 0:
                     return (y, x)
 
 
