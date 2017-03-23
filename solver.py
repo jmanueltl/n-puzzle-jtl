@@ -29,7 +29,8 @@ class Solver:
 
         self.expand_nodes(initial_grid)    
 
-        while not self.frontier.queue.popleft():
+        # while queue is not empty..
+        while self.frontier.queue:
             state = self.frontier.queue.get()    # TODO: this is mental. need another way
             self.explored.set.add(state)
 
