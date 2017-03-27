@@ -17,18 +17,18 @@ class Solver:
         # https://docs.python.org/2/library/copy.html
         self.initial_state = copy.deepcopy(self.list_to_grid(input_list)) 
         
-        # using custom structure so we can implement a custom __contains__
-        self.frontier = custom_structures.Frontier()        
-        self.explored = custom_structures.Explored() 
-
         # set goal state
         # TODO: this smells wrong. Is it?
         self.goal_state = self.set_goal_state(input_list)
 
+        # using custom structure so we can implement a custom __contains__
+        self.frontier = custom_structures.Frontier()        
+        self.explored = custom_structures.Explored()
 
 
 
-    def breadth_first_search(self):
+
+    def uninformed_search(self, search_method):
 
         initial_grid = grid.Grid(self.initial_state)
 
@@ -38,7 +38,13 @@ class Solver:
         # while queue is not empty..
         while self.frontier.queue:
             # TODO: better name for state. It's a grid. state.state is the state!
-            state = self.frontier.queue.popleft()    
+            
+            if search_method == 'bfs':
+                state = self.frontier.queue.popleft() 
+            elif search_method == 'dfs': 
+                state = self.frontier.queue.pop()  
+            
+
             self.explored.set.add(state)
 
             if self.goal_test(state):
@@ -51,6 +57,8 @@ class Solver:
         # if we get to here it's gone tits up
         raise ValueError('Shouldn\'t have got to here - gone tits')
 
+    
+    
 
     
     def expand_nodes(self, starting_grid):

@@ -11,6 +11,8 @@ if sys.argv[1] not in ['bfs', 'dfs', 'ast', 'ida']:
 	sys.stderr.write('<method> argument must be one of bfs, dfs, ast, ida\n')
 	sys.exit()
 
+search_method = sys.argv[1]
+
 # convert inut string to a list of ints
 input_list = sys.argv[2].split(',')
 input_list = map(int, input_list)
@@ -26,7 +28,12 @@ except ValueError:
     print 'no solution exists'
     sys.exit()
 
-solution = solver.breadth_first_search() 
+
+solution = solver.uninformed_search(search_method) 
+
+
+
+
 print solution
 
 
