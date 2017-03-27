@@ -162,12 +162,12 @@ class Solver:
             zero_odd = not y_is_even
         # if width not even, we don't need zero_odd
         
-        print inversion_count, inversions_even, width, width_even, zero_location
+        #print inversion_count, inversions_even, width, width_even, zero_location
 
 
         # ( (grid width odd) && (#inversions even) )  ||  ( (grid width even) && ((blank on odd row from bottom) == (#inversions even)) )
         # see the bham.ac.uk link
-        return ((not inversions_even and inversions_even)
+        return ((not width_even and inversions_even)
                or
                (width_even and (zero_odd == inversions_even)))
 
