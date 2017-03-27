@@ -5,7 +5,7 @@ import math
 
 
 class Solver:
-    """ Controller. Takes a grid state, returns path solution """
+    """ Controller. Takes an input list, returns path solution """
     
     def __init__(self, input_list):
         
@@ -115,7 +115,7 @@ class Solver:
                 i += 1
 
         return goal_state
-        
+
 
 
     def solvable(self, input_list):
