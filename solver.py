@@ -77,9 +77,6 @@ class Solver:
 
                 
 
-        
-
-
     def goal_test(self, state):
         
         # TODO: confusing names. state here is not a Grid.state but a Grid
@@ -118,6 +115,7 @@ class Solver:
                 i += 1
 
         return goal_state
+        
 
 
     def solvable(self, input_list):
