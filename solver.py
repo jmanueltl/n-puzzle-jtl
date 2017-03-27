@@ -159,9 +159,13 @@ class Solver:
         # not ideal: makes this bit hard to grasp unless you're in my brain!
         # TODO: make this more comprehensible/documented
         if width_even:
-            zero_odd = y_is_even
-        else:
             zero_odd = not y_is_even
+        else:
+            zero_odd = y_is_even
+
+        
+        #print inversion_count, inversions_even, width, width_even, zero_odd, zero_location
+
 
         # see the bham.ac.uk link
         return ((not inversions_even and inversions_even)
