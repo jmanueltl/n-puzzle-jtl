@@ -1,7 +1,6 @@
 import sys 
 import grid
 import solver
-import math
 
 # validate command line input
 if len(sys.argv) != 3:
@@ -19,34 +18,21 @@ input_list = map(int, input_list)
 
 # TODO: check that input list represents perfect square and contains all integers 0 to (len(input_state) - 1)
 
-# convert input list into nxn grid
 
-n = int(math.sqrt(len(input_list)))
-
-# initialise empty grid
-input_grid = [['-' for x in range(n)] for y in range(n)]
-
-# populate grid with tiles
-i = 0
-j = 0
-for tile in input_list:
-    input_grid[i][j] = tile
-    j += 1
-    if j == n:
-        j = 0
-        i += 1
 
 
 # testing
 # TODO: do we want to pass the input_grid to the solver, or just instantiate 
 # a generic Solver and pass inut_grid to the search method?
-solver = solver.Solver(input_grid, n)
-
 try:
-    solution = solver.breadth_first_search() 
-    print solution
+    solver = solver.Solver(input_list)
 except ValueError:
-    print 'solution not possible'
+    print 'no solution exists'
+    sys.exit()
+
+solution = solver.breadth_first_search() 
+print solution
+
 
 
 
