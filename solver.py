@@ -156,16 +156,10 @@ class Solver:
         else: width_even = False
 
         # our zero_location tuple counts rows from the top, but we need from the bottom
-        # not ideal: makes this bit hard to grasp unless you're in my brain!
-        # TODO: make this more comprehensible/documented
         if width_even:
             zero_odd = not y_is_even
         # if width not even, we don't need zero_odd
         
-        #print inversion_count, inversions_even, width, width_even, zero_location
-
-
-        # ( (grid width odd) && (#inversions even) )  ||  ( (grid width even) && ((blank on odd row from bottom) == (#inversions even)) )
         # see the bham.ac.uk link
         return ((not width_even and inversions_even)
                or
@@ -174,8 +168,6 @@ class Solver:
         
 
         
-
-
     def list_to_grid(self, tile_list):
 
         # TODO: this is getting confusing - shouldn't this be a method of grid instead?
