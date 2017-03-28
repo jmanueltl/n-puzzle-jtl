@@ -36,4 +36,5 @@ solution_metrics = solver.uninformed_search(search_method)
 
 print "path_to_goal: " + str(solution_metrics.path_to_goal)
 print "cost_of_path: " + str(solution_metrics.cost_of_path())
+print "nodes_expanded: " + str(solution_metrics.nodes_expanded)
        

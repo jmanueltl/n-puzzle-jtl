@@ -87,6 +87,8 @@ class Solver:
                 if imagined_grid not in self.frontier and imagined_grid not in self.explored:
                     self.frontier.queue.append(imagined_grid)
 
+        self.metrics.nodes_expanded += 1
+
                 
 
     def goal_test(self, state):
