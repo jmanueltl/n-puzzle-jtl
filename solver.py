@@ -33,6 +33,8 @@ class Solver:
 
     def uninformed_search(self, search_method):
 
+        self.metrics.start_timer()
+
         initial_grid = grid.Grid(self.initial_state)
 
         # add initial to the frontier
@@ -55,6 +57,7 @@ class Solver:
 
             if self.goal_test(state):
                 self.metrics.path_to_goal = state.path_history
+                self.metrics.stop_timer()
                 return self.metrics
 
             # add neighbours of this state to the frontier, if not already in the
