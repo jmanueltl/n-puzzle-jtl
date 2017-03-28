@@ -26,7 +26,7 @@ class Solver:
         self.frontier = custom_structures.Frontier()        
         self.explored = custom_structures.Explored()
 
-        self.metrics = metric.Metric()
+        self.metrics = metric.Metric(self.frontier)
 
 
 
@@ -52,7 +52,6 @@ class Solver:
 
             if self.goal_test(state):
                 self.metrics.path_to_goal = state.path_history
-                self.metrics.frontier_at_goal = self.frontier.queue
                 return self.metrics
 
             # add neighbours of this state to the frontier, if not already in the
@@ -87,6 +86,8 @@ class Solver:
                 # is this new grid already in frontier or explored?
                 if imagined_grid not in self.frontier and imagined_grid not in self.explored:
                     self.frontier.queue.append(imagined_grid)
+
+                    self.metrics.set_max_fringe()
 
         self.metrics.nodes_expanded += 1
 
