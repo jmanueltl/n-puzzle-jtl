@@ -2,6 +2,7 @@ import grid
 import custom_structures
 import copy
 import math
+import metric
 
 
 class Solver:
@@ -24,6 +25,8 @@ class Solver:
         # using custom structure so we can implement a custom __contains__
         self.frontier = custom_structures.Frontier()        
         self.explored = custom_structures.Explored()
+
+        self.metrics = metric.Metric()
 
 
 
@@ -48,7 +51,8 @@ class Solver:
             self.explored.set.add(state)
 
             if self.goal_test(state):
-                return state.path_history
+                self.metrics.path_to_goal = state.path_history
+                return self.metrics
 
             # add neighbours of this state to the frontier, if not already in the
             # frontier or explored

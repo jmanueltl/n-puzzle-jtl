@@ -29,12 +29,12 @@ except ValueError:
     sys.exit()
 
 
-solution = solver.uninformed_search(search_method) 
+solution_metrics = solver.uninformed_search(search_method) 
 
 
 
 
-print solution
+print "path_to_goal: " + str(solution_metrics.path_to_goal)
 
 
 
