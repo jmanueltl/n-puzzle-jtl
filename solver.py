@@ -62,7 +62,7 @@ class Solver:
 
             # add neighbours of this state to the frontier, if not already in the
             # frontier or explored
-            self.expand_nodes(state)
+            self.expand_nodes(state, search_method)
 
         # if we get to here it's gone tits up
         raise ValueError('Shouldn\'t have got to here - gone tits')
@@ -71,12 +71,15 @@ class Solver:
     
 
     
-    def expand_nodes(self, starting_grid):
+    def expand_nodes(self, starting_grid, search_method):
         """ adds all possible next nodes from a state to a frontier set """
 
-        # TODO: should be pushed in reverse order for DFS
+        node_order = ['up', 'down', 'left', 'right']
 
-        for node in ['up', 'down', 'left', 'right']:   
+        if search_method == 'dfs':
+            node_order = reversed(node_order)
+
+        for node in node_order:   
 
             # need to create new grid object for each node
             # the program is imagining the future!! (maybe change this name...)
