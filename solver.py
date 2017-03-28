@@ -52,6 +52,7 @@ class Solver:
 
             if self.goal_test(state):
                 self.metrics.path_to_goal = state.path_history
+                self.metrics.frontier_at_goal = self.frontier.queue
                 return self.metrics
 
             # add neighbours of this state to the frontier, if not already in the
