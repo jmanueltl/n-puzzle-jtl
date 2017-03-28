@@ -68,6 +68,8 @@ class Solver:
     def expand_nodes(self, starting_grid):
         """ adds all possible next nodes from a state to a frontier set """
 
+        # TODO: should be pushed in reverse order for DFS
+
         for node in ['up', 'down', 'left', 'right']:   
 
             # need to create new grid object for each node
