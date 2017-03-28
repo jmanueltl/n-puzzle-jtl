@@ -47,6 +47,9 @@ class Solver:
             elif search_method == 'dfs': 
                 state = self.frontier.queue.pop()  
             
+            # update depth metrics
+            self.metrics.search_depth = len(state.path_history)
+            self.metrics.update_max_depth()
 
             self.explored.set.add(state)
 
@@ -89,7 +92,7 @@ class Solver:
                 if imagined_grid not in self.frontier and imagined_grid not in self.explored:
                     self.frontier.queue.append(imagined_grid)
 
-                    self.metrics.set_max_fringe()
+                    self.metrics.update_max_fringe()
 
         self.metrics.nodes_expanded += 1
 

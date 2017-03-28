@@ -39,4 +39,5 @@ print "cost_of_path: " + str(solution_metrics.cost_of_path())
 print "nodes_expanded: " + str(solution_metrics.nodes_expanded)
 print "fringe_size: " + str(solution_metrics.fringe_size())
 print "max_fringe_size: " + str(solution_metrics.max_fringe_size)
-print "search_depth: " + str(len(solution_metrics.path_to_goal)) # TODO is this right?
+print "search_depth: " + str(solution_metrics.search_depth)
+print "max_search_depth: " + str(solution_metrics.max_search_depth)
