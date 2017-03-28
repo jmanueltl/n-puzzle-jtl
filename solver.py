@@ -4,7 +4,6 @@ import copy
 import math
 import metric
 
-
 class Solver:
     """ Controller. Takes an input list, returns path solution """
     
@@ -58,6 +57,7 @@ class Solver:
             if self.goal_test(state):
                 self.metrics.path_to_goal = state.path_history
                 self.metrics.stop_timer()
+                self.metrics.measure_ram_useage()                 
                 return self.metrics
 
             # add neighbours of this state to the frontier, if not already in the

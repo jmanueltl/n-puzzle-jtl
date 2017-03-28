@@ -42,3 +42,4 @@ print "max_fringe_size: " + str(solution_metrics.max_fringe_size)
 print "search_depth: " + str(solution_metrics.search_depth)
 print "max_search_depth: " + str(solution_metrics.max_search_depth)
 print "running_time: " + str(solution_metrics.search_time) + "ms"
+print "max_ram_useage: " + str(solution_metrics.max_ram_useage) + "MB"

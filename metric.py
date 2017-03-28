@@ -1,5 +1,6 @@
 import copy
 import time
+import resource
 
 class Metric:
 
@@ -23,6 +24,8 @@ class Metric:
 
         self.search_time = 0
 
+        self.max_ram_useage = 0
+
     def cost_of_path(self):
         return len(self.path_to_goal)
 
@@ -44,3 +47,7 @@ class Metric:
     def stop_timer(self):
         self.end_time = time.time()
         self.search_time = "{0:.2f}".format((self.end_time - self.start_time) * 1000)
+
+    def measure_ram_useage(self):
+        # https://docs.python.org/2/library/resource.html
+        self.max_ram_useage = (resource.getrusage(resource.RUSAGE_SELF).ru_maxrss) / 1000
