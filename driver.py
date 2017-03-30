@@ -11,13 +11,10 @@ if sys.argv[1] not in ['bfs', 'dfs', 'ast']:
 	sys.stderr.write('Error: <method> argument must be one of bfs, dfs, ast\n')
 	sys.exit()
 
-search_method = sys.argv[1]
-
 # convert input string to a list of ints
 input_list = sys.argv[2].split(',')
 input_list = map(int, input_list)
 
-# TODO: check that input list represents perfect square and contains all integers 0 to (len(input_state) - 1)
 if len(input_list) not in [4, 9, 16, 25]:
     sys.stderr.write("Error: input grid must be nxn square where n is 2, 3, 4 or 5\n")
     sys.exit()
@@ -29,24 +26,20 @@ for index, number in enumerate(ordered_list):
         sys.exit()
 
 
-
-
 # TODO: do we want to pass the input_grid to the solver, or just instantiate 
-# a generic Solver and pass inut_grid to the search method?
+# a generic Solver and pass input_grid to the search method?
 try:
     solver = solver.Solver(input_list)
 except ValueError:
     print 'no solution exists'
     sys.exit()
 
+search_method = sys.argv[1]
 
 if search_method == 'ast':
     solution_metrics = solver.a_star_search() 
 else:
     solution_metrics = solver.uninformed_search(search_method) 
-
-
-
 
 print "path_to_goal: " + str(solution_metrics.path_to_goal)
 print "cost_of_path: " + str(solution_metrics.cost_of_path())

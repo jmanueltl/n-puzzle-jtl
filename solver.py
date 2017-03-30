@@ -5,13 +5,13 @@ import math
 import metric
 
 
-
 class Solver:
-    """ Controller. Takes an input list, returns path solution """
+
+    """Controller class."""
     
     def __init__(self, input_list):
+        """Initialise Solver object. Raise ValueError if solution not possible."""
         
-        # not all grids are solvable
         if not self.solvable(input_list):
             raise ValueError('A solution is not possible')
 
@@ -19,11 +19,9 @@ class Solver:
         # https://docs.python.org/2/library/copy.html
         self.initial_state = copy.deepcopy(self.list_to_grid(input_list)) 
         
-        # set goal state
-        # TODO: this smells wrong. Is it?
         self.goal_state = self.set_goal_state(input_list)
 
-        # using custom structure so we can implement a custom __contains__
+        # using custom structures so we can implement a custom __contains__()
         self.frontier = custom_structures.Frontier() 
         self.ast_frontier = custom_structures.Priority_Frontier()       
         self.explored = custom_structures.Explored()
@@ -33,28 +31,23 @@ class Solver:
 
 
 
-
-    
     def uninformed_search(self, search_method):
+        """Explore search space using either breadth-first or depth-first search"""
 
         self.metrics.start_timer()
 
         initial_grid = grid.Grid(self.initial_state)
-
-        # add initial to the frontier
         self.frontier.queue.append(initial_grid)
         
         # while queue is not empty..
         while self.frontier.queue:
-            # TODO: better name for state. It's a grid. state.state is the state!
-            
+
+            # TODO: better name for state. It's a grid. state.state is the state!            
             if search_method == 'bfs':
                 state = self.frontier.queue.popleft() 
             elif search_method == 'dfs': 
                 state = self.frontier.queue.pop()  
             
-            
-            # update depth metrics
             self.metrics.search_depth = len(state.path_history)
             self.metrics.update_max_depth()
 
@@ -66,36 +59,33 @@ class Solver:
                 self.metrics.measure_ram_useage()                 
                 return self.metrics
 
-            # add neighbours of this state to the frontier, if not already in the
-            # frontier or explored
             self.expand_nodes(state, search_method)
 
         # if we get to here it's gone tits up
+        # TODO: this doesn't feel like good design!
         raise ValueError('Shouldn\'t have got to here - gone tits')
 
     
+
     def a_star_search(self):
+        """Explore search space using A*-search, using Manhattan Priority
+           Function as a heuristic."""
 
         self.metrics.start_timer()
 
         initial_grid = grid.Grid(self.initial_state)
         initial_grid.score = initial_grid.manhattan_score(self.goal_state)
 
-        # add initial to the frontier
-        self.ast_frontier.queue.put((initial_grid.score, initial_grid)) # TODO: ridiculous parameters
+        # TODO: ridiculous parameters
+        self.ast_frontier.queue.put((initial_grid.score, initial_grid)) 
         
         # while queue is not empty..
         while self.ast_frontier.queue:
+
             # TODO: better name for state. It's a grid. state.state is the state!
-                    
             lowest_scored = self.ast_frontier.queue.get()
             state = lowest_scored[1]
-            
-
-
-
                       
-            # update depth metrics
             self.metrics.search_depth = len(state.path_history)
             self.metrics.update_max_depth()
 
@@ -107,16 +97,15 @@ class Solver:
                 self.metrics.measure_ram_useage()                 
                 return self.metrics
 
-            # add neighbours of this state to the frontier, if not already in the
-            # frontier or explored
             self.expand_nodes(state, 'ast')
 
         # if we get to here it's gone tits up
         raise ValueError('Shouldn\'t have got to here - gone tits')
 
+
     
     def expand_nodes(self, starting_grid, search_method):
-        """ adds all possible next nodes from a state to a frontier set """
+        """Take a grid state, add all possible 'next moves' to the frontier"""
 
         node_order = ['up', 'down', 'left', 'right']
 
@@ -125,29 +114,24 @@ class Solver:
 
         for node in node_order:   
 
-            # need to create new grid object for each node
             # the program is imagining the future!! (maybe change this name...)
             imagined_grid = grid.Grid(starting_grid.state)
 
             # pass path history from previous grid to the next grid
-            # https://docs.python.org/2/library/copy.html
+            # using copy to avoid python's reference bindings
             imagined_grid.path_history = copy.copy(starting_grid.path_history)
 
             if imagined_grid.move(node):  # returns false if move not possible
                 
-                # update path history
                 imagined_grid.path_history.append(node)
 
-                # is this new grid already in frontier or explored?
                 if imagined_grid not in self.frontier and imagined_grid not in self.explored:
                     if search_method == 'ast':
                         imagined_grid.score = imagined_grid.manhattan_score(self.goal_state)
                         self.ast_frontier.queue.put((imagined_grid.score, imagined_grid))
                     else:
-                        self.frontier.queue.append(imagined_grid)
-                    
+                        self.frontier.queue.append(imagined_grid)               
                         
-
                     self.metrics.update_max_fringe()
 
         # TODO: this isn't in the right place. not all nodes are possible
