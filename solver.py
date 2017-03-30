@@ -22,7 +22,8 @@ class Solver:
         self.goal_state = self.set_goal_state(input_list)
 
         # using custom structure so we can implement a custom __contains__
-        self.frontier = custom_structures.Frontier()        
+        self.frontier = custom_structures.Frontier() 
+        self.ast_frontier = custom_structures.Priority_Frontier()       
         self.explored = custom_structures.Explored()
 
         self.metrics = metric.Metric(self.frontier)
@@ -30,6 +31,7 @@ class Solver:
 
 
 
+    
     def uninformed_search(self, search_method):
 
         self.metrics.start_timer()
@@ -47,6 +49,7 @@ class Solver:
                 state = self.frontier.queue.popleft() 
             elif search_method == 'dfs': 
                 state = self.frontier.queue.pop()  
+            
             
             # update depth metrics
             self.metrics.search_depth = len(state.path_history)
@@ -68,7 +71,40 @@ class Solver:
         raise ValueError('Shouldn\'t have got to here - gone tits')
 
     
-    
+    def a_star_search(self):
+
+        self.metrics.start_timer()
+
+        initial_grid = grid.Grid(self.initial_state)
+        initial_grid.score = initial_grid.manhattan_score(self.goal_state)
+
+        # add initial to the frontier
+        self.ast_frontier.queue.put(initial_grid.score, initial_grid) # TODO: ridiculous parameters
+        
+        # while queue is not empty..
+        while self.ast_frontier.queue:
+            # TODO: better name for state. It's a grid. state.state is the state!
+                    
+            state = self.frontier.queue.get()
+            
+            # update depth metrics
+            self.metrics.search_depth = len(state.path_history)
+            self.metrics.update_max_depth()
+
+            self.explored.set.add(state)
+
+            if self.goal_test(state):
+                self.metrics.path_to_goal = state.path_history
+                self.metrics.stop_timer()
+                self.metrics.measure_ram_useage()                 
+                return self.metrics
+
+            # add neighbours of this state to the frontier, if not already in the
+            # frontier or explored
+            self.expand_nodes(state, 'ast')
+
+        # if we get to here it's gone tits up
+        raise ValueError('Shouldn\'t have got to here - gone tits')
 
     
     def expand_nodes(self, starting_grid, search_method):
@@ -96,12 +132,17 @@ class Solver:
 
                 # is this new grid already in frontier or explored?
                 if imagined_grid not in self.frontier and imagined_grid not in self.explored:
-                    
-
-                    self.frontier.queue.append(imagined_grid)
+                    if search_method == 'ast':
+                        imagined_grid.score = imagined_grid.manhattan_score(self.goal_state)
+                        
+                        # insert into priority queue in score order
+                        self.ast_frontier.queue.put(imagined_grid.score, imagined_grid)
+                    else:
+                        self.frontier.queue.append(imagined_grid)
 
                     self.metrics.update_max_fringe()
 
+        # TODO: this isn't in the right place. not all nodes are possible
         self.metrics.nodes_expanded += 1
 
                 
@@ -159,7 +200,9 @@ class Solver:
 
         # ...if the row that zero is on id odd/even (can use existing method on Grid for now)
         temp_grid = grid.Grid(self.list_to_grid(input_list)) # TODO: sort this list/grid confusion
-        zero_location = temp_grid.locate_zero()
+        # TODO: see todo on grid.py:65 shouldn't be passing temp_grid.state
+        # to a method of temp_grid
+        zero_location = temp_grid.locate_tile(0, temp_grid.state)
         if zero_location[0] % 2 == 0: y_is_even = True
         else: y_is_even = False
 

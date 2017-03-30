@@ -29,7 +29,10 @@ except ValueError:
     sys.exit()
 
 
-solution_metrics = solver.uninformed_search(search_method) 
+if search_method == 'ast':
+    solution_metrics = solver.a_star_search() 
+else:
+    solution_metrics = solver.uninformed_search(search_method) 
 
 
 

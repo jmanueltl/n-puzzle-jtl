@@ -16,6 +16,9 @@ class Grid:
         # Tidy?
         self.n = len(input_state[0])
 
+        # determined by (manhattan) heuristic
+        self.score = 0
+
 
     def move(self, direction):
         """ 
