@@ -1,5 +1,5 @@
 from collections import deque
-import queue
+import Queue
 
 class Frontier:
         
@@ -31,7 +31,7 @@ class Explored:
 class Priority_Frontier:
         
     def __init__(self):
-        self.queue = queue.PriorityQueue()
+        self.queue = Queue.PriorityQueue()
 
     def __contains__(self, item):
         for element in self.queue:
