@@ -139,11 +139,9 @@ class Solver:
                 
 
     def goal_test(self, state):
+        """Compare a given state to the goal state. Return Boolean"""
         
         # TODO: confusing names. state here is not a Grid.state but a Grid
-
-        # ridiculous naming here
-        # TODO: is this using strict object comparison here?
         if state.state == self.goal_state:
             return True
         else:
@@ -152,6 +150,7 @@ class Solver:
         
     
     def set_goal_state(self, input_list):
+        """Construct and return a grid state in the correct order."""
 
         # initialise empty grid state
         n = int(math.sqrt(len(input_list)))
@@ -162,14 +161,11 @@ class Solver:
         j = 0
         count = 1
         
-        while i < n:
-            
+        while i < n:            
             if count == n * n:
                 count = 0
-
             goal_state[i][j] = count
-            count += 1            
-
+            count += 1      
             j += 1
             if j == n:
                 j = 0
@@ -180,24 +176,28 @@ class Solver:
 
 
     def solvable(self, input_list):
+        """Determine if a given input grid is solvable.
 
-        # turns out a lot of grids are unsolvable.
-        # http://math.stackexchange.com/questions/293527/how-to-check-if-a-8-puzzle-is-solvable/838818
-        # http://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
-        # NOTE: assumes blank tile goal position is bottom right
+        It turns out that a lot of grids are unsolvable.
+        http://math.stackexchange.com/questions/293527/how-to-check-if-a-8-puzzle-is-solvable/838818
+        http://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
+        
+        This implementation assumes blank tile goal position is bottom right.
+        """
 
         # solvability depends on the width...
         width = int(math.sqrt(len(input_list)))
 
-        # ...if the row that zero is on id odd/even (can use existing method on Grid for now)
+        # ..whether the row that zero is on is odd/even
         temp_grid = grid.Grid(self.list_to_grid(input_list)) # TODO: sort this list/grid confusion
+
         # TODO: see todo on grid.py:65 shouldn't be passing temp_grid.state
         # to a method of temp_grid
         zero_location = temp_grid.locate_tile(0, temp_grid.state)
         if zero_location[0] % 2 == 0: y_is_even = True
         else: y_is_even = False
 
-        # .. and the number of 'inversions'
+        # .. and the number of 'inversions' (not counting '0')
 
         # strip the blank tile
         input_list = [number for number in input_list if number != 0]
@@ -208,8 +208,7 @@ class Solver:
         for index, value in enumerate(input_list):
             for value_to_compare in input_list[index + 1 : list_length]:
                 if value > value_to_compare:
-                    inversion_count += 1
-                    
+                    inversion_count += 1                    
         
         if inversion_count % 2 == 0: inversions_even = True
         else: inversions_even = False
@@ -217,10 +216,11 @@ class Solver:
         if width % 2 == 0: width_even = True
         else: width_even = False
 
-        # our zero_location tuple counts rows from the top, but we need from the bottom
+        # our zero_location tuple counts rows from the top,
+        # but this algorithm needs to count from the bottom
         if width_even:
             zero_odd = not y_is_even
-        # if width not even, we don't need zero_odd
+        # if width not even, we don't need zero_odd (see docstring links)
         
         # see the bham.ac.uk link
         return ((not width_even and inversions_even)
@@ -228,11 +228,11 @@ class Solver:
                (width_even and (zero_odd == inversions_even)))
 
         
-
         
     def list_to_grid(self, tile_list):
+        """Take a list of length n^2, return a nxn 2D list"""        
 
-        # TODO: this is getting confusing - shouldn't this be a method of grid instead?
+        # TODO: Shouldn't this be a method of grid instead?
 
         n = int(math.sqrt(len(tile_list)))
 
@@ -250,16 +250,3 @@ class Solver:
                 i += 1
 
         return input_grid
-
-
-
-
-
-
-        
-
-        
-
-
-
-
