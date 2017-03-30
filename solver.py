@@ -28,6 +28,7 @@ class Solver:
         self.ast_frontier = custom_structures.Priority_Frontier()       
         self.explored = custom_structures.Explored()
 
+        # TODO: fringe metrics not working for ast (because we're passing it wrong frontier here)
         self.metrics = metric.Metric(self.frontier)
 
 

@@ -7,8 +7,8 @@ if len(sys.argv) != 3:
 	sys.stderr.write('Error: must be 3 command line arguments of the form:\npython driver.py <method> <board>\n')
 	sys.exit()
 
-if sys.argv[1] not in ['bfs', 'dfs', 'ast', 'ida']: 
-	sys.stderr.write('<method> argument must be one of bfs, dfs, ast, ida\n')
+if sys.argv[1] not in ['bfs', 'dfs', 'ast']: 
+	sys.stderr.write('<method> argument must be one of bfs, dfs, ast\n')
 	sys.exit()
 
 search_method = sys.argv[1]
