@@ -85,7 +85,7 @@ class Solver:
         while self.ast_frontier.queue:
             # TODO: better name for state. It's a grid. state.state is the state!
                     
-            state = self.frontier.queue.get()
+            state = self.ast_frontier.queue.get()
             
             # update depth metrics
             self.metrics.search_depth = len(state.path_history)
