@@ -134,8 +134,7 @@ class Solver:
                         
                     self.metrics.update_max_fringe()
 
-        # TODO: this isn't in the right place. not all nodes are possible
-        self.metrics.nodes_expanded += 1
+            self.metrics.nodes_expanded += 1
 
                 
 
