@@ -4,6 +4,8 @@ import copy
 import math
 import metric
 
+
+
 class Solver:
     """ Controller. Takes an input list, returns path solution """
     
@@ -79,14 +81,19 @@ class Solver:
         initial_grid.score = initial_grid.manhattan_score(self.goal_state)
 
         # add initial to the frontier
-        self.ast_frontier.queue.put(initial_grid.score, initial_grid) # TODO: ridiculous parameters
+        self.ast_frontier.queue.put((initial_grid.score, initial_grid)) # TODO: ridiculous parameters
         
         # while queue is not empty..
         while self.ast_frontier.queue:
             # TODO: better name for state. It's a grid. state.state is the state!
                     
-            state = self.ast_frontier.queue.get()
+            lowest_scored = self.ast_frontier.queue.get()
+            state = lowest_scored[1]
             
+
+
+
+                      
             # update depth metrics
             self.metrics.search_depth = len(state.path_history)
             self.metrics.update_max_depth()
@@ -136,7 +143,7 @@ class Solver:
                         imagined_grid.score = imagined_grid.manhattan_score(self.goal_state)
                         
                         # insert into priority queue in score order
-                        self.ast_frontier.queue.put(imagined_grid.score, imagined_grid)
+                        self.ast_frontier.queue.put((imagined_grid.score, imagined_grid)
                     else:
                         self.frontier.queue.append(imagined_grid)
 
