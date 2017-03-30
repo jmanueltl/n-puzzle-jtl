@@ -1,4 +1,5 @@
 from collections import deque
+import queue
 
 class Frontier:
         
@@ -26,6 +27,16 @@ class Explored:
 
         return False
         
-    
+# TODO: this whole difference between Frontier and Priority_Frontier is a messy hack   
+class Priority_Frontier:
+        
+    def __init__(self):
+        self.queue = queue.PriorityQueue()
 
+    def __contains__(self, item):
+        for element in self.queue:
+            if item.state == element.state:
+                return True
+
+        return False
         
