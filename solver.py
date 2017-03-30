@@ -141,11 +141,11 @@ class Solver:
                 if imagined_grid not in self.frontier and imagined_grid not in self.explored:
                     if search_method == 'ast':
                         imagined_grid.score = imagined_grid.manhattan_score(self.goal_state)
-                        
-                        # insert into priority queue in score order
-                        self.ast_frontier.queue.put((imagined_grid.score, imagined_grid)
+                        self.ast_frontier.queue.put((imagined_grid.score, imagined_grid))
                     else:
                         self.frontier.queue.append(imagined_grid)
+                    
+                        
 
                     self.metrics.update_max_fringe()
 
