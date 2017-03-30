@@ -96,6 +96,8 @@ class Solver:
 
                 # is this new grid already in frontier or explored?
                 if imagined_grid not in self.frontier and imagined_grid not in self.explored:
+                    
+
                     self.frontier.queue.append(imagined_grid)
 
                     self.metrics.update_max_fringe()
@@ -150,6 +152,7 @@ class Solver:
         # turns out a lot of grids are unsolvable.
         # http://math.stackexchange.com/questions/293527/how-to-check-if-a-8-puzzle-is-solvable/838818
         # http://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
+        # NOTE: assumes blank tile goal position is bottom right
 
         # solvability depends on the width...
         width = int(math.sqrt(len(input_list)))
